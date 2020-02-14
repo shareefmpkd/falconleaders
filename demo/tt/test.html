@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <!-- CONTACT FORM : BEGIN -->
+      <div>
+          <form method="post" name="myemailform" action="contact.php">
+              <div>
+                  <input type="text" placeholder="Your Name" name="name" id="name" required>
+              </div>
+              <div>
+                  <input type="email" placeholder="Your Email" name="email" id="email" required>
+              </div>
+              <div>
+                  <input type="text" placeholder="Your Phone" name="phone" id="phone">
+              </div>
+              <div>
+                  <textarea id="msg" placeholder="Describe your mining need" name="message" id="needs" required></textarea>
+              </div>
+              <div>
+                  <input class="form-submit-button-text" id="button" type="submit" name='submit' value="SUBMIT" style="width: 200px;">
+              </div>
+          </form>
+          <div class="contactform-messages">Thank you for reaching out to us. We'll get back to you shortly!</div>
+      </div>
+      <!-- CONTACT FORM : END -->
+
+       <script>
+            $("#contact-form").on('submit',function(event) {
+                event.preventDefault(); // to prevent default page reloading
+                var dataString = $(this).serialize(); // to get the form data
+                $.ajax({
+                    type: "POST",
+                    url: "contact.php",
+                    data: dataString,
+                    success: function(data){
+                        $('#contact-form')[0].reset(); // to reset form data
+                    }
+                }).done(function(data){
+                    setTimeout(function () {
+                        $('.contactform-messages').addClass('active');
+                    }, 500);
+                });
+            });
+        </script>
+        <style type="text/css">
+          .contactform-messages {
+    display: none;
+}
+.active {
+    display: block;
+}
+        </style>
+    </body>
+</html>
